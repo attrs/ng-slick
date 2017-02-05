@@ -1,0 +1,26 @@
+{
+  "name": "ng-slick",
+  "version": "0.1.0",
+  "description": "angularjs directive - slick-carousel",
+  "main": "lib/ng-slick.js",
+  "repository": "attrs/ng-slick",
+  "author": "joje <joje.attrs@gmail.com>",
+  "homepage": "https://github.com/attrs/ng-slick",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
+  "dependencies": {
+    "slick-carousel": "^1.6.0"
+  },
+  "devDependencies": {
+    "css-loader": "^0.26.1",
+    "less": "^2.7.2",
+    "less-loader": "^2.2.3",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.1"
+  }
+}
