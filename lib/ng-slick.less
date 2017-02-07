@@ -83,17 +83,9 @@ ng-slick {
     transform: translateZ(0);
   }
   
-  .slick-slide.zooming {
-    &.slick-active {
-      animation-delay: 1s;
-      animation: ng-slick-zooming 15s ease-out 1;
-    }
-  }
-  
-  .slick-slide.fade {
-    &.slick-active {
-      animation: ng-slick-fade 2s ease-out 1;
-    }
+  .slick-slide.slick-slide-zooming {
+    animation-delay: 0.1s;
+    animation: ng-slick-zooming 15s ease-out 1;
   }
 }
 
@@ -103,14 +95,5 @@ ng-slick {
   }
   100% {
     transform: matrix(1.15, 0, 0, 1.15, 0, 0) rotate(0.02deg);
-  }
-}
-
-@keyframes ng-slick-fade {
-  0% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 1;
   }
 }
