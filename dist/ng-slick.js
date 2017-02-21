@@ -13728,7 +13728,7 @@ angular.module('ngSlick', []).directive('ngSlick', ['$timeout', function(timeout
       
       var init = false;
       var update = function () {
-        if( init ) return slider.slick('unslick').slick(options);
+        if( init ) return slider.slick('removeSlide', null, null, true).slick('unslick').slick(options);
         init = true;
         slider.slick(options);
       };
