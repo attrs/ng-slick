@@ -87,6 +87,14 @@ ng-slick {
     animation-delay: 0.1s;
     animation: ng-slick-zooming 15s ease-out 1;
   }
+  
+  .slick-track, .slick-list {
+    overflow: hidden;
+  }
+  
+  .slick-arrow, .slick-dots {
+    z-index: 200;
+  }
 }
 
 @keyframes ng-slick-zooming {
