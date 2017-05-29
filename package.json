@@ -1,6 +1,6 @@
 {
   "name": "ng-slick",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "angularjs directive - slick-carousel",
   "main": "lib/ng-slick.js",
   "repository": "attrs/ng-slick",
