@@ -13700,7 +13700,7 @@ angular.module('ngSlick', []).directive('ngSlick', ['$timeout', function(timeout
         cssEase: attrs.cssEase || 'linear',
         fade: 'fade' in attrs,
         focusOnSelect: 'focusOnSelect' in attrs,
-        lazyLoad: attrs.lazyLoad,
+        lazyLoad: attrs.lazyLoad == 'true',
         draggable: attrs.draggable !== 'false',
         easing: attrs.easing || 'linear',
         centerMode: 'centerMode' in attrs,
