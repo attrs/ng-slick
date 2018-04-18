@@ -21,10 +21,10 @@
     "slick-carousel": "^1.6.0"
   },
   "devDependencies": {
-    "css-loader": "^0.26.1",
-    "less": "^2.7.2",
-    "less-loader": "^2.2.3",
-    "style-loader": "^0.13.1",
-    "webpack": "^2.2.1"
+    "css-loader": "^0.28.11",
+    "less": "^3.0.1",
+    "less-loader": "^4.1.0",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.6.0"
   }
 }
