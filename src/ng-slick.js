@@ -13,6 +13,7 @@ angular.module('ngSlick', []).directive('ngSlick', ['$timeout', function(timeout
     restrict: 'AE',
     link(scope, element, attrs) {
       let lastslide;
+      const parent = scope.$parent;
 
       const slider = $(element)
         .addClass('ng-slick')
@@ -24,7 +25,7 @@ angular.module('ngSlick', []).directive('ngSlick', ['$timeout', function(timeout
           }
 
           if( attrs.ngSlickInit )
-            scope.$parent.$eval(attrs.ngSlickInit, {$event: event, $slick: slick});
+            parent.$eval(attrs.ngSlickInit, {$event: event, $slick: slick});
         })
         .on('beforeChange', (event, slick, currentSlide, nextSlide) => {
           lastslide = slick.$slides[currentSlide];
@@ -35,45 +36,45 @@ angular.module('ngSlick', []).directive('ngSlick', ['$timeout', function(timeout
           }
 
           if( attrs.ngSlickBeforeChange )
-            scope.$parent.$eval(attrs.ngSlickBeforeChange, {$event: event, $slick: slick, $currentSlide: currentSlide, $nextSlide: nextSlide});
+            parent.$eval(attrs.ngSlickBeforeChange, {$event: event, $slick: slick, $currentSlide: currentSlide, $nextSlide: nextSlide});
         })
         .on('afterChange', (event, slick, currentSlide) => {
           if( lastslide ) $(lastslide).removeClass('slick-slide-zooming');
 
           if( attrs.ngSlickAfterChange )
-            scope.$parent.$eval(attrs.ngSlickAfterChange, {$event: event, $slick: slick, $currentSlide: currentSlide});
+            parent.$eval(attrs.ngSlickAfterChange, {$event: event, $slick: slick, $currentSlide: currentSlide});
         })
         .on('breakpoint', (event, slick, breakpoint) => {
           if( attrs.ngSlickBreakpoint )
-            scope.$parent.$eval(attrs.ngSlickBreakpoint, {$event: event, $slick: slick, $breakpoint: breakpoint});
+            parent.$eval(attrs.ngSlickBreakpoint, {$event: event, $slick: slick, $breakpoint: breakpoint});
         })
         .on('destroy', (event, slick) => {
           if( attrs.ngSlickDestroy )
-            scope.$parent.$eval(attrs.ngSlickDestroy, {$event: event, $slick: slick});
+            parent.$eval(attrs.ngSlickDestroy, {$event: event, $slick: slick});
         })
         .on('edge', (event, slick, direction) => {
           if( attrs.ngSlickEdge )
-            scope.$parent.$eval(attrs.ngSlickEdge, {$event: event, $slick: slick, $direction: direction});
+            parent.$eval(attrs.ngSlickEdge, {$event: event, $slick: slick, $direction: direction});
         })
         .on('reInit', (event, slick) => {
           if( attrs.ngSlickReInit )
-            scope.$parent.$eval(attrs.ngSlickReInit, {$event: event, $slick: slick});
+            parent.$eval(attrs.ngSlickReInit, {$event: event, $slick: slick});
         })
         .on('setPosition', (event, slick) => {
           if( attrs.ngSlickSetPosition )
-            scope.$parent.$eval(attrs.ngSlickSetPosition, {$event: event, $slick: slick});
+            parent.$eval(attrs.ngSlickSetPosition, {$event: event, $slick: slick});
         })
         .on('swipe', (event, slick, direction) => {
           if( attrs.ngSlickSwipe )
-            scope.$parent.$eval(attrs.ngSlickSwipe, {$event: event, $slick: slick, $direction: direction});
+            parent.$eval(attrs.ngSlickSwipe, {$event: event, $slick: slick, $direction: direction});
         })
         .on('lazyLoaded', (event, slick, image, imageSource) => {
           if( attrs.ngSlickLazyLoaded )
-            scope.$parent.$eval(attrs.ngSlickLazyLoaded, {$event: event, $slick: slick, $image: image, $src: imageSource, $imageSource: imageSource});
+            parent.$eval(attrs.ngSlickLazyLoaded, {$event: event, $slick: slick, $image: image, $src: imageSource, $imageSource: imageSource});
         })
         .on('lazyLoadError', (event, slick, image, imageSource) => {
           if( attrs.ngSlickLazyLoadError )
-            scope.$parent.$eval(attrs.ngSlickLazyLoadError, {$event: event, $slick: slick, $image: image, $src: imageSource, $imageSource: imageSource});
+            parent.$eval(attrs.ngSlickLazyLoadError, {$event: event, $slick: slick, $image: image, $src: imageSource, $imageSource: imageSource});
         });
 
       const buildoptions = () => {
@@ -93,7 +94,7 @@ angular.module('ngSlick', []).directive('ngSlick', ['$timeout', function(timeout
         if( 'adaptiveHeight' in attrs ) o.adaptiveHeight = attrs.adaptiveHeight !== 'false';
         if( 'arrows' in attrs ) o.arrows = attrs.arrows !== 'false';
         if( 'pauseOnHover' in attrs ) o.pauseOnHover = attrs.pauseOnHover !== 'false';
-        if( 'responsive' in attrs ) o.responsive = attrs.responsive && scope.$parent.$eval(attrs.responsive);
+        if( 'responsive' in attrs ) o.responsive = attrs.responsive && parent.$eval(attrs.responsive);
         if( 'rtl' in attrs ) o.rtl = attrs.rtl === 'true';
         if( 'touchMove' in attrs ) o.touchMove = attrs.touchMove !== 'false';
         if( 'touchThreshold' in attrs && +attrs.touchThreshold ) o.touchThreshold = +attrs.touchThreshold;
@@ -126,9 +127,9 @@ angular.module('ngSlick', []).directive('ngSlick', ['$timeout', function(timeout
         init();
       };
 
-      scope.$on('$destroy', () => {
-        destroy();
-      });
+      scope.$on('$destroy', () => destroy());
+
+      attrs.ngWatch && parent.$watch(attrs.ngWatch, () => timeout(refresh));
 
       scope.$watch('ngSlickOptions', () => {
         const o = scope.ngSlickOptions;
@@ -137,7 +138,7 @@ angular.module('ngSlick', []).directive('ngSlick', ['$timeout', function(timeout
 
       scope.refresh = element[0].refresh = () => timeout(refresh);
 
-      return timeout(init);
+      return !attrs.ngWatch && timeout(init, 10);
     }
   };
 }]);
