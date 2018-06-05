@@ -1,0 +1,4 @@
+build/**/* linguist-vendored=false
+dist/**/* linguist-vendored=false
+lib/**/* linguist-vendored=false
+src/**/* linguist-vendored

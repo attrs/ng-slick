@@ -2,29 +2,45 @@
   "name": "ng-slick",
   "version": "0.1.15",
   "description": "angularjs directive - slick-carousel",
-  "main": "lib/ng-slick.js",
-  "repository": "attrs/ng-slick",
   "author": "joje <joje.attrs@gmail.com>",
+  "repository": "attrs/ng-slick",
   "homepage": "https://github.com/attrs/ng-slick",
   "license": "MIT",
-  "files": [
-    "dist",
-    "lib",
-    "LICENSE",
-    "README.md"
-  ],
+  "main": "lib/ng-slick.js",
+  "jsnext:main": "src/ng-slick.js",
+  "scripts": {
+    "prepublishOnly": "npm run dist",
+    "dist:lib": "webpack --config build/webpack.lib.config.js",
+    "babel": "rm -rf ./lib && babel ./src -d ./lib --source-maps inline --copy-files",
+    "dist": "npm run babel && npm run dist:lib"
+  },
   "peerDependencies": {
     "jquery": ">= 1.2",
     "angular": "1.x"
   },
   "dependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "slick-carousel": "1.7"
   },
   "devDependencies": {
-    "css-loader": "^0.28.11",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
     "style-loader": "^0.21.0",
-    "webpack": "^4.6.0"
-  }
+    "url-loader": "^0.5.9",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.19.1",
+    "eslint-config-esnext": "^2.0.0",
+    "webpack": "^3.6.0"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "LICENSE",
+    "README.md"
+  ]
 }
