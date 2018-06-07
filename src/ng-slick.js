@@ -113,18 +113,26 @@ angular.module('ngSlick', []).directive('ngSlick', ['$timeout', function(timeout
       };
 
       const init = () => {
-        if( !slider.hasClass('slick-initialized') )
-          slider.css('opacity', 1).slick(buildoptions()).slick('setPosition').slick('slickGoTo', 0).slick('slickPlay');
+        if( !slider.hasClass('ng-slick-init') ) {
+          slider.addClass('ng-slick-init').css('opacity', 1).slick(buildoptions()).slick('setPosition').slick('slickGoTo', 0).slick('slickPlay');
+        }
       };
 
       const destroy = () => {
-        if( slider.hasClass('slick-initialized') )
-          slider.remove('slick-list').slick('unslick');
+        if( slider.hasClass('ng-slick-init') )
+          slider.removeClass('ng-slick-init').remove('slick-list').slick('unslick');
       };
 
-      const refresh =  () => {
+      let refreshing = false;
+      const refresh = () => {
+        if( refreshing ) return;
+
+        refreshing = true;
         destroy();
-        init();
+        setTimeout(() => {
+          refreshing = false;
+          init();
+        }, 150);
       };
 
       scope.$on('$destroy', () => destroy());
